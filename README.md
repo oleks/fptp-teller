@@ -17,7 +17,7 @@ design an open source automated tally system for FPTP elections, formally
 specified in [Z][0], implemented and verified in [SPARK][1].
 
 [0]: http://en.wikipedia.org/wiki/Z
-[1]: http://en.wikipedia.org/wiki/SPARK_(programming_language).
+[1]: http://en.wikipedia.org/wiki/SPARK_(programming_language)
 
 ## Licence ##
 
