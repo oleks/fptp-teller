@@ -14,8 +14,10 @@ parliamentary elections through the use of single-member elective districts.
 Once the votes have been cast, a mission critical process is necessary to count
 the votes. This is done by a tally system. The purpose of this project is to
 design an open source automated tally system for FPTP elections, formally
-specified in [Z](http://en.wikipedia.org/wiki/Z), implemented and verified in
-[SPARK](http://en.wikipedia.org/wiki/SPARK_(programming_language)).
+specified in [Z][0], implemented and verified in [SPARK][1].
+
+[0]: http://en.wikipedia.org/wiki/Z
+[1]: http://en.wikipedia.org/wiki/SPARK_(programming_language).
 
 ## Licence ##
 
