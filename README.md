@@ -19,7 +19,7 @@ specified in [Z][2], implemented and verified in [SPARK][3].
 
 [0]: http://en.wikipedia.org/wiki/First_past_the_post
 [1]: http://en.wikipedia.org/wiki/Party-list_proportional_representation
-[2]: http://en.wikipedia.org/wiki/Z
+[2]: http://en.wikipedia.org/wiki/Z_notation
 [3]: http://en.wikipedia.org/wiki/SPARK_(programming_language)
 
 ## Licence ##
