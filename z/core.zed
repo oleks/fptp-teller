@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{czt}
+
+\begin{document}
+
+This specification describes a tally system for first-past-the-post (FPTP)
+elections.
+
+In an FPTP election, citizens are registered as voters and candidates. Every
+candidate is a voter, but not every voter is a candidate.
+
+This an anonymous teller, which means that every voter is issued a token, and
+a voter votes for a token among the set of candidate tokens.
+
+It is outside the scope of this specification to ensure the anonymity of
+tokens. It is also outside the scope of this specification to ensure that all
+voters are handed out a token, and no duplicate ballots occur.
+
+\begin{zed}
+[TOKEN]
+\end{zed}
+
+\begin{axdef}
+  voters : \power TOKEN \\
+  candidates : \power TOKEN
+\where
+  candidates \subseteq voters
+\end{axdef}
+
+\begin{axdef}
+  ballot : voters \fun candidates
+\end{axdef}
+
+\begin{gendef}[T]
+  reduce : (T \cross T \fun T) \cross T \cross \seq T \fun T
+\where
+  \forall f : T \cross T \fun T @ \forall a : T @ \forall as : \seq T @ reduce(f, a, as) = \\
+  \ \ \IF \#as = 0 \THEN a \ELSE f(head~as, reduce(f, a, tail~as)) 
+\end{gendef}
+
+\begin{axdef}
+  sum : \seq \nat \fun \nat
+\where
+  \forall plus : \nat \cross \nat \fun \nat @ \forall x, y : \nat @ \forall as : \seq \nat @ \\
+  \ \ plus(x,y) = x + y \implies sum(as) = reduce(plus,0,as)
+\end{axdef}
+
+\begin{schema}{Teller}
+  tally : candidates \fun \nat
+\where
+  \forall v : voters @ \forall c : candidates @ \forall i : \nat @ \\
+  \ \ \forall votes : candidates \fun \seq \nat @ \\
+  \ \ votes(c)(i) = \IF ballot(v) = c \THEN 1 \ELSE 0 \implies \\
+  \ \ tally(c) = sum(votes(c))
+\end{schema}
+
+\end{document}
