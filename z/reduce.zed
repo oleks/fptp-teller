@@ -1,0 +1,19 @@
+We introduce a generalised linear reduction over sequences. The function takes
+as parameters a reduction operator, an initial accumulator value, and a
+sequence of elements. The accumulator need not have the same type as the
+elements of the sequence. For instance, we can use a reduction to count the
+number of occurrences of a particular value in a sequence.
+
+\begin{gendef}[S,T]
+  reduce : (S \cross T \fun S) \cross S \cross \seq T \fun S
+\where
+  \forall f : S \cross T \fun S @ \forall s : S @ \forall ts : \seq T @ \\
+  \ \ reduce(f, s, ts) = \\
+  \ \ \ \ \IF~\#ts = 0 \\
+  \ \ \ \ \THEN~s \\
+  \ \ \ \ \ELSE~reduce(f, f(s, head~ts), tail~ts) 
+\end{gendef}
+
+An efficient implementation could perform a tree-like reduction on vector
+hardware.
+
