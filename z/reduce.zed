@@ -1,6 +1,6 @@
-We introduce a generalised linear reduction over sequences. The function takes
-as parameters a reduction operator, an initial accumulator value, and a
-sequence of elements. The accumulator need not have the same type as the
+We introduce a generalised reduction over sequences. The function takes as
+parameters an associative reduction operator, an initial accumulator value, and
+a sequence of elements. The accumulator need not have the same type as the
 elements of the sequence. For instance, we can use a reduction to count the
 number of occurrences of a particular value in a sequence.
 
@@ -14,6 +14,6 @@ number of occurrences of a particular value in a sequence.
   \ \ \ \ \ELSE~reduce(f, f(s, head~ts), tail~ts) 
 \end{gendef}
 
-An efficient implementation could perform a tree-like reduction on vector
-hardware.
+This definition hints at a linear reduction, but an efficient implementation
+could perform a tree-like reduction on vector hardware.
 
