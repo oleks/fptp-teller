@@ -1,6 +1,0 @@
-\begin{gendef}[T]
-  take1 : \power_1 T \bij T \cross \power T
-\where
-  \forall ts : \power_1 T @ \exists t : ts @
-  take1(ts) = (t, ts \setminus \{t\})
-\end{gendef}

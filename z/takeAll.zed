@@ -1,0 +1,26 @@
+Sets may be used to represent sequences with no duplicates. Unlike a sequence,
+a set  is not enumerable; but any conceivable representation of a set is. This
+demands the ability to convert a set into a sequence, for operations where a
+sequence is more suitable. The following definitions provide support for such
+an operation.
+
+$take1$ takes an arbitrary element out of a set and returns a pair consisting
+of the element and the remaining set.
+
+\begin{gendef}[T]
+  take1 : \power_1 T \bij T \cross \power T
+\where
+  \forall ts : \power_1 T @ \exists t : ts @
+  take1(ts) = (t, ts \setminus \{t\})
+\end{gendef}
+
+$takeAll$ iteratively applies $take1$ until the set is empty, and constructs a
+sequence from the resulting elements.
+
+\begin{gendef}[T]
+  takeAll : \power T \fun \seq T
+\where
+  \forall ts, s : \power T @ \forall t : T @ \\
+  \ \ (t,s) = take1(ts) \implies takeAll(ts) = \langle t \rangle \cat takeAll(s)
+\end{gendef}
+
