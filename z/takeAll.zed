@@ -21,6 +21,7 @@ sequence from the resulting elements.
   takeAll : \power T \fun \seq T
 \where
   \forall ts, s : \power T @ \forall t : T @ \\
-  \ \ (t,s) = take1(ts) \implies takeAll(ts) = \langle t \rangle \cat takeAll(s)
+  \ \ (t,s) = take1(ts) \implies
+      takeAll(ts) = \langle t \rangle \cat takeAll(s)
 \end{gendef}
 

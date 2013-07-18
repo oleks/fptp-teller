@@ -33,7 +33,7 @@ voters are handed out a token, and no duplicate ballots occur.
 
 \input{reduce.zed}
 
-\input{take1.zed}
+\input{takeAll.zed}
 
 \begin{gendef}[S,T]
   reduce' : (S \cross T \fun S) \cross S \cross \power T \fun S
