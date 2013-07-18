@@ -1,14 +1,20 @@
 #!/bin/sh
 
 BASENAME="$1"
-CONTENT="$2"
-FILENAME="$2"
 OUTDIR="./output/"
-OUTFILE="$OUTDIR$FILENAME.pdf"
 
 mkdir -p $OUTDIR
 
+if [ "$BASENAME" = "standalone.tex" ]
+then
+  COMMAND="\\newcommand\\content[0]{\\input{$2}}\\input{standalone.tex}"
+  FILENAME="${2%.*}"
+else
+  COMMAND="\\input{$BASENAME}"
+  FILENAME="${BASENAME%.*}"
+fi
+
 pdflatex -output-directory=$OUTDIR -file-line-error \
--jobname $FILENAME \
-"\\newcommand\\content[0]{\\input{$CONTENT}}\\input{$BASENAME}"
+  -jobname $FILENAME \
+  $COMMAND
 

@@ -31,24 +31,32 @@ voters are handed out a token, and no duplicate ballots occur.
   ballot : voters \fun candidates
 \end{axdef}
 
-\begin{gendef}[T]
-  reduce : (T \cross T \fun T) \cross T \cross \seq T \fun T
+\input{reduce.zed}
+
+\input{take1.zed}
+
+\begin{gendef}[S,T]
+  reduce' : (S \cross T \fun S) \cross S \cross \power T \fun S
 \where
-  \forall f : T \cross T \fun T @ \forall a : T @ \forall as : \seq T @ reduce(f, a, as) = \\
-  \ \ \IF \#as = 0 \THEN a \ELSE f(head~as, reduce(f, a, tail~as)) 
+  \forall f : S \cross T \fun S @ \forall b : S @ \forall as, s : \power T @
+    \forall a : T @ \\
+  \ \ (a,s) = take1(as) \implies \\
+  \ \ reduce'(f, b, as) = \IF \# as = 0 \THEN b \ELSE reduce'(f,f(b,a),s)
 \end{gendef}
+
 
 \begin{axdef}
   sum : \seq \nat \fun \nat
 \where
-  \forall plus : \nat \cross \nat \fun \nat @ \forall x, y : \nat @ \forall as : \seq \nat @ \\
+  \forall plus : \nat \cross \nat \fun \nat @ \forall x, y : \nat @
+    \forall as : \seq \nat @ \\
   \ \ plus(x,y) = x + y \implies sum(as) = reduce(plus,0,as)
 \end{axdef}
 
 \begin{schema}{Teller}
   tally : candidates \fun \nat
 \where
-  \forall v : voters @ \forall c : candidates @ \forall i : \nat @ \\
+  \forall c : candidates @ \forall v : voters @ \forall i : \nat @ \\
   \ \ \forall votes : candidates \fun \seq \nat @ \\
   \ \ votes(c)(i) = \IF ballot(v) = c \THEN 1 \ELSE 0 \implies \\
   \ \ tally(c) = sum(votes(c))
