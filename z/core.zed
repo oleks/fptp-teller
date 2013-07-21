@@ -16,6 +16,8 @@ It is outside the scope of this specification to ensure the anonymity of
 tokens. It is also outside the scope of this specification to ensure that all
 voters are handed out a token, and no duplicate ballots occur.
 
+This is a relative majority FPTP teller.
+
 \begin{zed}
 [TOKEN]
 \end{zed}
@@ -28,38 +30,15 @@ voters are handed out a token, and no duplicate ballots occur.
 \end{axdef}
 
 \begin{axdef}
-  ballot : voters \fun candidates
-\end{axdef}
-
-\input{reduce.zed}
-
-\input{takeAll.zed}
-
-\begin{gendef}[S,T]
-  reduce' : (S \cross T \fun S) \cross S \cross \power T \fun S
-\where
-  \forall f : S \cross T \fun S @ \forall b : S @ \forall as, s : \power T @
-    \forall a : T @ \\
-  \ \ (a,s) = take1(as) \implies \\
-  \ \ reduce'(f, b, as) = \IF \# as = 0 \THEN b \ELSE reduce'(f,f(b,a),s)
-\end{gendef}
-
-
-\begin{axdef}
-  sum : \seq \nat \fun \nat
-\where
-  \forall plus : \nat \cross \nat \fun \nat @ \forall x, y : \nat @
-    \forall as : \seq \nat @ \\
-  \ \ plus(x,y) = x + y \implies sum(as) = reduce(plus,0,as)
+  ballots : voters \fun candidates
 \end{axdef}
 
 \begin{schema}{Teller}
-  tally : candidates \fun \nat
+  tally : candidates \fun \nat \\
+  winner : candidates
 \where
-  \forall c : candidates @ \forall v : voters @ \forall i : \nat @ \\
-  \ \ \forall votes : candidates \fun \seq \nat @ \\
-  \ \ votes(c)(i) = \IF ballot(v) = c \THEN 1 \ELSE 0 \implies \\
-  \ \ tally(c) = sum(votes(c))
+  \forall c : candidates @ tally(c) = \# ( ballots \rres \{ c \} ) \\
+  \forall c : candidates @ tally(winner) \geq tally(c)
 \end{schema}
 
 \end{document}
