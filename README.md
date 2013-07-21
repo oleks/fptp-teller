@@ -24,4 +24,11 @@ specified in [Z][2], implemented and verified in [SPARK][3].
 
 ## Licence ##
 
+Copyright 2013 Oleksandr Shturmov.
+
 Licenced under the EUPL, Version 1.1 only.
+
+You may obtain a copy of the Licence at:
+
+http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
