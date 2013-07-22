@@ -3,24 +3,21 @@
 
 \begin{document}
 
-This specification describes a tally system for first-past-the-post (FPTP)
-elections.
+This document specifies a tally system for first-past-the-post (FPTP) elections
+in Z.
 
-In an FPTP election, citizens are registered as voters and candidates. Every
-candidate is a voter, but not every voter is a candidate.
-
-This an anonymous teller, which means that every voter is issued a token, and
-a voter votes for a token among the set of candidate tokens.
-
-It is outside the scope of this specification to ensure the anonymity of
-tokens. It is also outside the scope of this specification to ensure that all
-voters are handed out a token, and no duplicate ballots occur.
-
-This is a relative majority FPTP teller.
+Votes are tallied anonymously, using a token system. Issuing tokens is beyond
+the scope of this specification. We assume a finite set of tokens available as
+a basic type:
 
 \begin{zed}
 [TOKEN]
 \end{zed}
+
+In an FPTP election, citizens are registered as voters and candidates. Every
+candidate is a voter, but not every voter is a candidate. The process of voter
+registration is beyond the scope of this specification. We assume a set of
+voters and a set candidates available as global variables:
 
 \begin{axdef}
   voters : \power TOKEN \\
@@ -29,9 +26,24 @@ This is a relative majority FPTP teller.
   candidates \subseteq voters
 \end{axdef}
 
+Not all tokens are necessarily dealt to voters. This is to allow token
+generation to happen separately from voter registration. We should take care
+not to allow arbitrary tokens to register ballots, but only those that have
+been dealt to a voter.
+
+We assume a set of ballots available as a global variable: 
+
 \begin{axdef}
   ballots : voters \fun candidates
 \end{axdef}
+
+We represent ballots as a function as multiple voters may vote for the same
+candidate, but every voter must vote for exactly one candidate. A ``none of the
+above'' option may be implemented as a candidate\footnote{The ``none of the
+above'' candiate would then also be a voter.}.
+
+This is a relative majority FPTP teller. For every candidate we provide a
+tally, and specify the winner of an election:
 
 \begin{schema}{Teller}
   tally : candidates \fun \nat \\
