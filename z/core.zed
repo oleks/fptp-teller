@@ -6,51 +6,146 @@
 This document specifies a tally system for first-past-the-post (FPTP) elections
 in Z.
 
-Votes are tallied anonymously, using a token system. Issuing tokens is beyond
-the scope of this specification. We assume a finite set of tokens available as
-a basic type:
+An FPTP election is the simplest possible type of election, and is frequently
+employed on a small scale. Pitfalls: minorities might be underrepresented in
+national elections with single-member legislative districts, certain groups
+might be discriminated into not participating, if parties choose the candidate
+to run in each district.
+
+Votes are cast and tallied anonymously using a token system. Issuing tokens is
+beyond the scope of this specification. A voter may chose among a set of
+available of options to express her intent. We assume a set of voter and option
+tokens as basic types:
 
 \begin{zed}
-[TOKEN]
+[VOTER, OPTION]
 \end{zed}
 
-In an FPTP election, citizens are registered as voters and candidates. Every
-candidate is a voter, but not every voter is a candidate. The process of voter
-registration is beyond the scope of this specification. We assume a set of
-voters and a set candidates available as global variables:
+In an election, individuals are registered as voters and candidates. The
+process of voter and candidate registration is beyond the scope of this
+specification. We assume that everyone eligible to vote is registered as a
+voter. We assume a nonempty finite set of registered voters and candidates:
 
 \begin{axdef}
-  voters : \power TOKEN \\
-  candidates : \power TOKEN
+  voters : \finset_1 VOTER \\
+  candidates : \finset_1 OPTION
+\end{axdef}
+
+Not all voter and option tokens are necessarily dealt. Token generation can
+happen offline, prior to registration, or online, during registration. It is
+beyond the scope of this specification to ensure that enough tokens are
+generated to accommodate all the registrations.
+
+In an FPTP election, a voter chooses one among the available options on a
+ballot. An FPTP ballot is first and foremost a list of candidates. This list
+may be insufficient to express voter intent. For this purpose, a ``none of the
+above'' option is typically added to the ballot.
+
+Aside from casting a valid vote, the voter may also:
+
+\begin{enumerate}
+
+\item not cast a vote;
+
+\item cast a blank vote; or
+
+\item cast an invalid vote.
+
+\end{enumerate}
+
+We take these options into consideration and say that a voter always chooses
+one among her possible options, in particular, a voter may chose the option to
+not cast a vote. A voter cannot not choose one of the options.
+
+Depending on the legislature, some, or all of the above may be equivalent to
+voting for ``none of the above'', or casting an invalid vote. Likewise, it
+depends on the legislature what effect such votes (or lack thereof) have on the
+tally. To provide for these options, we introduce the following global
+variables:
+
+\begin{axdef}
+hasNota : \{ 0, 1 \}
+\end{axdef}
+
+$hasNota$ indicates whether the ballot includes the special ``none of the
+above'' option.
+
+\begin{axdef}
+nota, noVote, blank, invalid : OPTION \\
+otherOptions : \finset_1 OPTION
 \where
-  candidates \subseteq voters
+otherOptions = \{ nota, noVote, blank, invalid \}
 \end{axdef}
-
-Not all tokens are necessarily dealt to voters. This is to allow token
-generation to happen separately from voter registration. We should take care
-not to allow arbitrary tokens to register ballots, but only those that have
-been dealt to a voter.
-
-We assume a set of ballots available as a global variable: 
 
 \begin{axdef}
-  ballots : voters \fun candidates
+noVoteIs : \{ nota, noVote, blank, invalid \}
+\where
+noVoteIs = nota \implies hasNota = 1
 \end{axdef}
+
+\begin{axdef}
+blankIs : \{ nota, noVote, blank, invalid \}
+\where
+blankIs = nota \implies hasNota = 1
+\end{axdef}
+
+\begin{axdef}
+invalidIs : \{ nota, noVote, blank, invalid \}
+\where
+invalidIs = 1 \implies hasNota = 1
+\end{axdef}
+
+\begin{itemize}
+
+\item Has nota, no vote is nota, blank is nota, invalid is nota.
+
+\item Has nota, no 
+
+\end{itemize}
+
+
+We provide a flag to specify whether not casting a vote should have an effect
+on the outcome of the election. If $voterMajority$ is set to $0$, then 
+
+\begin{axdef}
+voterMajority : \{ 0, 1 \} \\
+\end{axdef}
+
+We summon these observations into the possible states of a ballot:
+
+\begin{axdef}
+nota, blank, invalid : OPTION \\
+options : \finset_1 OPTION
+\where
+nota, blank, invalid \notin candidates \\
+options = \{ nota, blank, invalid \} \cup candidates
+\end{axdef}
+
+We should take care not to allow arbitrary tokens to register ballots, but only
+those that have been dealt to a voter. We assume a set of ballots available as
+a global variable: 
+
+\begin{axdef}
+  ballots : voters \fun states
+\end{axdef}
+
+The fact that ballots is a nonpartial function can be mitigated for by
+initializing it to map to $blank$ for every voter.
 
 We represent ballots as a function as multiple voters may vote for the same
-candidate, but every voter must vote for exactly one candidate. A ``none of the
-above'' option may be implemented as a candidate\footnote{The ``none of the
-above'' candiate would then also be a voter.}.
+candidate, but every voter must vote for exactly one candidate.
 
 This is a relative majority FPTP teller. For every candidate we provide a
 tally, and specify the winner of an election:
 
 \begin{schema}{Teller}
   tally : candidates \fun \nat \\
-  winner : candidates
+  frontRunners : \finset_1 candidates \\
+  winner : maybeCandidates
 \where
   \forall c : candidates @ tally(c) = \# ( ballots \rres \{ c \} ) \\
-  \forall c : candidates @ tally(winner) \geq tally(c)
+  \forall f : frontRunners @ \forall c : candidates @ tally(f) \geq tally(c) \\
+  winner = \IF \# fronRunners = 1 \THEN 
 \end{schema}
 
 \end{document}
