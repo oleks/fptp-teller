@@ -24,7 +24,7 @@ specified in [Z][2], implemented and verified in [SPARK][3].
 
 ## Licence ##
 
-Copyright 2013 Oleksandr Shturmov.
+Copyright (c) 2013 Oleksandr Shturmov.
 
 Licenced under the EUPL, Version 1.1 only.
 
