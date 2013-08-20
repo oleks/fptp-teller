@@ -16,16 +16,24 @@
 \setupLocation[short=DIKU]{Datalogisk institut, Copenhagen University}
 \setupAuthor[addendum={\email{oleks@diku.dk}}]{Oleksandr Shturmov}
 
-\usepackage{czt}
-
 % TODO: remove these 2 lines!
 \setlength{\oddsidemargin}{50pt}
 \setlength{\evensidemargin}{50pt}
+
+\newenvironment{zed}[0]{\bigbreak$}{$\bigbreak}
+\newenvironment{axdef}[0]%
+  {\bigbreak$\begin{tabular}{|l}}%
+  {\end{tabular}$\bigbreak}
+\def\finset_1{\ensuremath{\mathbb{F}_1}}
 
 \begin{document}
 
 \maketitle
 \thispagestyle{first} % no fancy header on first page (just a fancy footer).
+
+\input{fptp}
+
+\input{z}
 
 \input{references}
 

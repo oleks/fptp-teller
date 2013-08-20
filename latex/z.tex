@@ -1,0 +1,57 @@
+\chapter{Z}
+
+Votes are cast and tallied anonymously using a token system. Issuing tokens is
+beyond the scope of this specification. A voter may chose among a set of
+available of options to express her intent. We assume a set of voter and option
+tokens as basic types:
+
+\begin{zed}
+[VOTER, OPTION]
+\end{zed}
+
+In an election, individuals are registered as voters and candidates are
+registered as options. The process of voter and candidate registration is
+beyond the scope of this specification. We assume that everyone eligible to
+vote is registered as a voter. We assume a nonempty finite set of registered
+voters and candidates:
+
+\begin{axdef}
+$voters : \finset_1 VOTER$ \\
+$candidates: \finset_1 OPTION$
+\end{axdef}
+
+Not all voter and option tokens are necessarily dealt. Token generation can
+happen offline, prior to registration, or online, during registration. It is
+beyond the scope of this specification to ensure that enough tokens are
+generated to accommodate all the registrations.
+
+In an FPTP election, a voter chooses one among the available options on a
+ballot. An FPTP ballot is first and foremost a list of candidates. This list
+may be insufficient to express voter intent. For this purpose, a ``none of the
+above'' option is typically added to the ballot.
+
+Aside from casting a valid vote, the voter may also:
+
+\begin{enumerate}
+
+\item not cast a vote;
+
+\item cast a blank vote; or
+
+\item cast an invalid vote.
+
+\end{enumerate}
+
+We take these options into consideration and say that a voter always chooses
+one among her possible options, in particular, a voter may chose the option to
+not cast a vote. A voter cannot not choose one of the options.
+
+Depending on the legislature, some, or all of the above may be equivalent to
+voting for ``none of the above'', or casting an invalid vote. Likewise, it
+depends on the legislature what effect such votes (or lack thereof) have on the
+tally. To provide for these options, we introduce the following global
+variables:
+
+%\begin{axdef}
+%hasNota : \set{0, 1}
+%\end{axdef}
