@@ -1,19 +1,20 @@
 \chapter{Z}
 
-Votes are cast and tallied anonymously using a token system. Issuing tokens is
-beyond the scope of this specification. A voter may chose among a set of
-available of options to express her intent. We assume a set of voter and option
-tokens as basic types:
+Votes are cast and tallied anonymously using a token system. A voter may chose
+among a set of available of options to express her intent. We assume a set of
+voter and option tokens as basic types. Issuing tokens is beyond the scope of
+this specification.
 
 \begin{zed}
 [VOTER, OPTION]
 \end{zed}
 
-In an election, individuals are registered as voters and candidates are
+In an election, individuals are registered as voters, and candidates are
 registered as options. The process of voter and candidate registration is
 beyond the scope of this specification. We assume that everyone eligible to
-vote is registered as a voter. We assume a nonempty finite set of registered
-voters and candidates:
+vote is registered as a voter, and everyone eligible to be elected is
+registered as a candidate. We assume a nonempty finite set of registered voters
+and candidates:
 
 \begin{axdef}
 $voters : \finset_1 VOTER$ \\
@@ -25,10 +26,10 @@ happen offline, prior to registration, or online, during registration. It is
 beyond the scope of this specification to ensure that enough tokens are
 generated to accommodate all the registrations.
 
-In an FPTP election, a voter chooses one among the available options on a
-ballot. An FPTP ballot is first and foremost a list of candidates. This list
-may be insufficient to express voter intent. For this purpose, a ``none of the
-above'' option is typically added to the ballot.
+In an FPTP election, a voter always chooses one among her available options.
+The options are first and foremost a list of candidates. This list may be
+insufficient to express voter intent, and a ``none of the above'' option is
+typically added.
 
 Aside from casting a valid vote, the voter may also:
 
@@ -42,16 +43,48 @@ Aside from casting a valid vote, the voter may also:
 
 \end{enumerate}
 
-We take these options into consideration and say that a voter always chooses
-one among her possible options, in particular, a voter may chose the option to
-not cast a vote. A voter cannot not choose one of the options.
+Depending on the legislature, the above options may have different effects on
+the tally. For instance, not casting a vote may be legislatively equivalent to
+voting for ``none of the above''. We leave it to further postprocessing to
+handle such discrepancies. We regard all of the above as separate options, and
+present a tally for each option.
 
-Depending on the legislature, some, or all of the above may be equivalent to
-voting for ``none of the above'', or casting an invalid vote. Likewise, it
-depends on the legislature what effect such votes (or lack thereof) have on the
-tally. To provide for these options, we introduce the following global
-variables:
+\begin{axdef}
+$nota, absent, blank, invalid : OPTION$ \\
+$options : \finset_1 OPTION $
+\where
+$nota, novote, blank, invalid \notin candidates $\\
+$options = \set{ nota, novote, blank, invalid } \cup candidates$
+\end{axdef}
 
-%\begin{axdef}
-%hasNota : \set{0, 1}
-%\end{axdef}
+Only registered voters can cast votes, and a vote consists of a particular
+choice of options. We choose to encode the ballots in the system as a
+nonpartial function with adequately restricted types:
+
+\begin{axdef}
+$ballots : voters \fun options$
+\end{axdef}
+
+Note, a voter always has a chosen option, even before an election occurs. In
+particular, before an election occurs, all voters are $absent$. TODO: ballot
+registration.
+
+After the voters, candidates, and ballots are in, we turn to the tallying
+itself.
+
+The teller computes a tally for every option. Some of those options are
+candidates. The winners are those candidates that have attained a tally greater
+than or equal to every other candidate.
+
+\begin{axdef}
+  $tally : options \fun \nat$ \\
+  $winners : \finset_1 candidates$
+\where
+  $\forall\ o : options\ .\ tally\p{o} =
+    \# \p{ ballots \vartriangleleft \set{ o } }$ \\
+  $\forall\ w : winners\ .\ \forall\ c : candidates
+    \ .\ tally\p{w} \geq tally\p{c}$ \\
+\end{axdef}
+
+TODO: $winners$ is a bad name. They're more like relative front runners.
+
