@@ -57,8 +57,8 @@ $nota, novote, blank, invalid \notin candidates $\\
 $options = \set{ nota, novote, blank, invalid } \cup candidates$
 \end{axdef}
 
-Only registered voters can cast votes, and a vote consists of a particular
-choice of options. We choose to encode the ballots in the system as a
+Only registered voters can cast votes. A vote is a particular option chosen by
+a particular voter. We choose to encode the ballots in the system as a
 nonpartial function with adequately restricted types:
 
 \begin{axdef}
@@ -66,7 +66,7 @@ $ballots : voters \fun options$
 \end{axdef}
 
 Note, a voter always has a chosen option, even before an election occurs. In
-particular, before an election occurs, all voters are $absent$. TODO: ballot
+particular, before any votes are cast, all voters are $absent$. TODO: ballot
 registration.
 
 After the voters, candidates, and ballots are in, we turn to the tallying
@@ -80,11 +80,27 @@ than or equal to every other candidate.
   $tally : options \fun \nat$ \\
   $winners : \finset_1 candidates$
 \where
-  $\forall\ o : options\ .\ tally\p{o} =
+  $\forall\ o : options \bullet tally\p{o} =
     \# \p{ ballots \vartriangleleft \set{ o } }$ \\
-  $\forall\ w : winners\ .\ \forall\ c : candidates
-    \ .\ tally\p{w} \geq tally\p{c}$ \\
+  $\forall\ w : winners \bullet \forall\ c : candidates
+   \bullet tally\p{w} \geq tally\p{c}$ \\
 \end{axdef}
 
 TODO: $winners$ is a bad name. They're more like relative front runners.
+
+Corollaries:
+
+\begin{axdef}
+$\# \p{ winners } \leq \# \p{ candidates }$ \\
+\end{axdef}
+
+\begin{axdef}
+$\# \p{ ballots } = \# \p{ voters }$
+\end{axdef}
+
+To show:
+
+\begin{axdef}
+$\# \p{ candidates } = 1 \Rightarrow \# \p{ winners } = 1$
+\end{axdef}
 
