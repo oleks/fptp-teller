@@ -8,10 +8,6 @@ particular set of problems. A system \emph{specification} is a document
 describing the system. A \emph{specification language} is the language used to
 write a specification.
 
-A \emph{formal specfication} is a specification written in a \emph{formally
-specified language}. The formal nature of the specification allows one to
-reason about the system using formal methods, e.g. mathematical analysis.
-
 Every program is a specification, and every programming language is a
 specification language. A specification is \emph{efficient} if it is directly
 executable by a computer. A specification need not be efficient in general.
@@ -30,10 +26,10 @@ input and generate the expected output, and check that the system produces the
 same result. As the problem space explodes (as it quickly does), it becomes
 infeasible to fully verify a system in this way.
 
-With a formal specification, we can reason about the specification rather than
-the system behaviour. For instance, if the specification language allows the
-use of certain mathematical constructs, certain mathematical techniques can be
-used to verify that the system satisfies the formally stated properties.
+A \emph{formal specfication} is a specification written in a \emph{formally
+specified language}. The formal nature of the specification allows one to
+reason about system correctness using formal methods, e.g. mathematical
+analysis.
 
 A correct system is not necessarily efficient, but an efficient system is
 desired in practice. A correct system may therefore be \emph{refined} to a more

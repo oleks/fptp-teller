@@ -16,7 +16,7 @@
 # BASENAME="root"
 
 # Optional, the name of the output file.
-JOBNAME="shturmov-demtech-synposis"
+JOBNAME="shturmov-demtech-project-description"
 
 if [ -z $BASENAME ]; then BASENAME="${1%.*}"; fi
 if [ -z $BASENAME ]; then BASENAME="root"; fi
