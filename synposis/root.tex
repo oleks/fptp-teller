@@ -1,0 +1,47 @@
+\documentclass[a4paper]{article}
+
+\usepackage[fancy]{template}
+\usepackage{survival-pack}
+
+\setup{%
+  subject={Master Project},%
+  assignment={Project Description},%
+  date={October 19, 2013.}%
+}
+\setupLocation[short=DIKU]{Datalogisk institut, Copenhagen University}
+\setupAuthor[addendum={\email{oleks@diku.dk}}]{Oleksandr Shturmov}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{first} % no fancy header on first page (just a fancy footer).
+
+A first past the post (FPTP) election is won by the candidate(s) obtaining a
+majority of the votes. The majority may be relative (most votes) or absolute
+($> 50\%$). In case of ties, or lack of winners, runoff elections may be held
+until a single winner is attained. A voter may vote for exactly one candidate,
+typically in an anonymous manner.
+
+FPTP is most common in states that descended from the British and French
+empires, e.g. UK, United States, Canada, or India. It is the second most widely
+used election system in the world, after party-list proportional representation
+(PLPR). FPTP is often used for head of state elections, while PLPR is often
+used for parliamentary elections. FPTP can also be used for parliamentary
+elections having single-member elective districts.
+
+Once the votes have been cast, a mission critical process is necessary to count
+the votes. This is done by a tally system. The purpose of this project is to
+design an open source, automated tally system for FPTP elections, formally
+specified in Z, implemented and verified in SPARK. This is further explained
+below.
+
+\input{formal-methods}
+
+\input{z}
+
+\input{spark}
+
+\input{references}
+
+\end{document}
+
