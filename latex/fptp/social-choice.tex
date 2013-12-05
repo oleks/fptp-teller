@@ -7,11 +7,54 @@
 
 \section{Social Choice}
 
+\def\pref{\succsim}
+\def\npref{\nsuccsim}
+\def\spref{\succ}
+\def\nspref{\nsucc}
+\def\indif{\sim}
+\def\nindif{\nsim}
+
 Let a \emph{world} be a set of elements in a particular \emph{state}. Let an
 \emph{alternative} be a collective state of a subset of the world. Let an
 \emph{individual} be a subset of the world that prefers some alternatives over
 others.
 
-\emph{Social choice} is the study of transformation of individual preference
-relations into collective preference relations.
+\emph{Social choice} is the study of transformation of individual preferences
+into collective preferences. It is important to note that a collective in and
+of itself does not possess preferences. Social choice, therefore, also deals
+with the philosophical problem inherent in deducing collective preferences.
+
+A preference may be \emph{oridnal} or \emph{cardinal}, in the sense that a
+certain alternative may simply be preferred to another, or be preferred by a
+certain amount. The latter requires a preference metric upon which all
+individuals agree. This itself is a matter of social choice, and is susceptible
+to philosophical debate, so we will not be concerned with it here.
+
+Let preferences be ordinal, and thereby amenable to representation using binary
+relations. Let $A$ denote a non-empty set of alternatives. Let $\pref$
+(pronounced ``is preferred to'') be an infix operator denoting a preference
+relation. Assuming a set of tuples representation of relations, we have $\pref
+\in \mathbb{P}\p{A\times A}$.  We'll assume that preference relations are
+\emph{transitive} and \emph{complete}, i.e.  $\forall a,b,c\in A \bullet a\pref
+b \wedge b \pref c \Rightarrow a \pref c$ and $\forall a,b\in A \bullet a \pref
+b \vee b \pref a$.
+
+We'll introduce two admissible relations for any given preference relation:
+\emph{strict preference} and \emph{indifference}. Let $\spref$ (pronounced ``is
+strictly preferred to'') be the relation $\set{\p{a,b} : A \times A \st{a \pref
+b \wedge b \npref a}}$. Let $\indif$ (pronounced ``is indifferent to'') be the
+relation $\set{\p{a,b} : A \times A \st{a \pref b \wedge b \pref a}}$.
+
+\subsection{Further Reading}
+
+This section does not provide a thorough introduction to Social Choice. This
+section merely introduces those concepts of Social Choice relevant for our
+further discussion. The interested reader is therefore guided to further
+readings on the subject.
+
+For a formal, philosophical discussion on the matter of preference, and
+ultimately social choice, consider the article \cite{preferences} in the
+Stanford Encyclopedia of Philosophy.
+
+
 
