@@ -19,10 +19,8 @@ Let a \emph{world} be a set of elements in a particular \emph{state}. Let an
 \emph{individual} be a subset of the world that prefers some alternatives over
 others.
 
-\emph{Social choice} is the study of transformation of individual preferences
-into collective preferences. It is important to note that a collective in and
-of itself does not possess preferences. Social choice, therefore, also deals
-with the philosophical problem inherent in deducing collective preferences.
+\emph{Social choice} is the study of deducing collective preferences from
+individual preferences.
 
 A preference may be \emph{oridnal} or \emph{cardinal}, in the sense that a
 certain alternative may simply be preferred to another, or be preferred by a
@@ -31,11 +29,11 @@ individuals agree. This itself is a matter of social choice, and is susceptible
 to philosophical debate, so we will not be concerned with it here.
 
 Let preferences be ordinal, and thereby amenable to representation using binary
-relations. Let $A$ denote a non-empty set of alternatives. Let $\pref$
-(pronounced ``is preferred to'') be an infix operator denoting a preference
-relation. Assuming a set of tuples representation of relations, we have $\pref
-\in \mathbb{P}\p{A\times A}$.  We'll assume that preference relations are
-\emph{transitive} and \emph{complete}, i.e.  $\forall a,b,c\in A \bullet a\pref
+relations. Let $A$ denote a set of alternatives. Let $\pref$ (pronounced ``is
+preferred to'') be an infix operator denoting a preference relation. Assuming a
+set of tuples representation of relations, we have $\pref \in
+\mathbb{P}\p{A\times A}$.  We'll assume that preference relations are
+\emph{transitive} and \emph{total}, i.e.  $\forall a,b,c\in A \bullet a\pref
 b \wedge b \pref c \Rightarrow a \pref c$ and $\forall a,b\in A \bullet a \pref
 b \vee b \pref a$.
 
@@ -45,16 +43,40 @@ strictly preferred to'') be the relation $\set{\p{a,b} : A \times A \st{a \pref
 b \wedge b \npref a}}$. Let $\indif$ (pronounced ``is indifferent to'') be the
 relation $\set{\p{a,b} : A \times A \st{a \pref b \wedge b \pref a}}$.
 
+Let $N=\set{i:\mathbb{N}\st{i<n}}$ be the set of $n\in\mathbb{N}$ individuals
+in a collective.  Let $P=\set{\pref_i\st{i\in \mathbb{N} \wedge i < n}}$ be the
+set of their individual preference relations, and $\pref$ be their collective
+preference relation.  Likewise, for the relations $\spref$ and $\indif$.
+
+% The way that we show that these properties do not hold is by showing a toy
+% election where they do not hold.
+
+% In all scoring rules, the last alternative is ranked 0.
+%
+% Count the number of voters that picked some alternative first (times 1,
+% normalize it all by |U|-1.
+% 
+% Count the number of voters that picked some alternative second (variable
+% s_2). s_2 (after normalization) is in the range 0 to 1.
+% 
+
 \subsection{Further Reading}
 
-This section does not provide a thorough introduction to Social Choice. This
-section merely introduces those concepts of Social Choice relevant for our
-further discussion. The interested reader is therefore guided to further
-readings on the subject.
+This section does not provide a thorough introduction to social choice. This
+section merely introduces those concepts of social choice relevant for our
+further discussions. The interested reader is welcomed to further readings on
+the subject.
 
-For a formal, philosophical discussion on the matter of preference, and
+For a semi-formal, philosophical discussion on the matter of preference, and
 ultimately social choice, consider the article \cite{preferences} in the
 Stanford Encyclopedia of Philosophy.
 
+For an introduction from a computer science perspective, the reader is referred
+to the relatively young field of Computational Social Choice, e.g.
+\cite{brandt, chevaleyre}.
 
+For a comprehensive treatment of social choice theory, with a focus on social
+choice functions, simple majorities, the Condorcet criterion, and others, the
+reader is referred to Peter C. Fishburn's The Theory of Social Choice
+\cite{fishburn}.
 
